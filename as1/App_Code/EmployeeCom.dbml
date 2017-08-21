@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EmployeeCom" Class="EmployeeComDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\ProjectsV12;Initial Catalog=EmployeeCom;Integrated Security=True;Connect Timeout=30" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EmployeeComConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.profile" Member="profiles">
+    <Type Name="profile">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="profile_message" Member="messages" ThisKey="Id" OtherKey="sender_ID" Type="message" />
+      <Association Name="profile_message1" Member="messages1" ThisKey="Id" OtherKey="receiver_ID" Type="message" />
+      <Association Name="usertbl_profile" Member="usertbl" ThisKey="user_id" OtherKey="Id" Type="usertbl" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.user_location" Member="user_locations">
+    <Type Name="user_location">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="street_addr" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="city" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="province_state" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="country" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="postal_zipCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="usertbl_user_location" Member="usertbl" ThisKey="user_id" OtherKey="Id" Type="usertbl" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.usertbl" Member="usertbls">
+    <Type Name="usertbl">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="gender" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="date_birth" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="usertbl_profile" Member="profiles" ThisKey="Id" OtherKey="user_id" Type="profile" />
+      <Association Name="usertbl_user_location" Member="user_locations" ThisKey="Id" OtherKey="user_id" Type="user_location" />
+    </Type>
+  </Table>
+  <Table Name="dbo.message" Member="messages">
+    <Type Name="message">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="messageText" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="sender_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="receiver_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="seen" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="profile_message" Member="profile" ThisKey="sender_ID" OtherKey="Id" Type="profile" IsForeignKey="true" />
+      <Association Name="profile_message1" Member="profile1" ThisKey="receiver_ID" OtherKey="Id" Type="profile" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
